@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VR Quiz Admin | Matrix Control</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-sidebar {
+            width: 250px;
+            background: rgba(0, 0, 0, 0.8);
+            border-right: 1px solid var(--glass-border);
+            height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            max-height: 100vh;
+            padding: 20px;
+        }
+
+        .stat-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .table-glass {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .table-glass th {
+            color: var(--cyan);
+            font-family: 'Orbitron';
+        }
+    </style>
+</head>
+
+<body class="vr-universe admin-page">
+    <div class="hud-scanlines"></div>
+
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <div class="admin-sidebar p-4 d-flex flex-column">
+            <h3 class="text-cyan orbitron mb-5">MATRIX_ADM</h3>
+            <ul class="nav flex-column gap-3">
+                <li class="nav-item">
+                    <a href="admin.html" class="nav-link text-white glass-panel p-2">DASHBOARD</a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin_edit.html" class="nav-link text-white-50 p-2">EDIT QUESTIONS</a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin_add.html" class="nav-link text-white-50 p-2">ADD QUESTION</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-white-50 p-2" onclick="showSettings()">SETTINGS</a>
+                </li>
+                <li class="nav-item mt-auto">
+                    <a href="index.html" class="btn btn-outline-magenta w-100 orbitron">EXIT MATRIX</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <header class="d-flex justify-content-between align-items-center mb-5">
+                <h2 class="orbitron text-white">SYSTEM OVERVIEW</h2>
+                <div class="text-end">
+                    <small class="text-white-50 d-block">ADMIN_SESSION_ACTIVE</small>
+                    <span class="text-cyan small">AUTH_LEVEL: OMEGA</span>
+                </div>
+            </header>
+
+            <div class="row g-4 mb-5">
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <small class="text-white-50">TOTAL_SYNCERS</small>
+                        <h2 class="text-cyan orbitron mt-2">1,204</h2>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <small class="text-white-50">AVG_INTEGRITY</small>
+                        <h2 class="text-magenta orbitron mt-2">84%</h2>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <small class="text-white-50">ACTIVE_NODES</small>
+                        <h2 class="text-cyan orbitron mt-2">15</h2>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <small class="text-white-50">UPTIME</small>
+                        <h2 class="text-white orbitron mt-2">99.9%</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4 mb-5">
+                <div class="col-lg-8">
+                    <div class="glass-panel p-4 h-100">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h4 class="orbitron text-cyan m-0">RECENT_USER_SYNCS</h4>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-dark table-hover table-glass">
+                                <thead>
+                                    <tr>
+                                        <th>NAME</th>
+                                        <th>CLASS</th>
+                                        <th>BRANCH</th>
+                                        <th>SCORE</th>
+                                        <th>STATUS</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="sync-logs-body">
+                                    <!-- Dynamic Sync Logs -->
+                                    <tr>
+                                        <td>ALEX_SYNC</td>
+                                        <td>T-12</td>
+                                        <td>CORP_HQ</td>
+                                        <td>93%</td>
+                                        <td><span class="badge bg-success shadow-sm">STABLE</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>SARAH_VOID</td>
+                                        <td>T-09</td>
+                                        <td>NEURAL_LAB</td>
+                                        <td>42%</td>
+                                        <td><span class="badge bg-danger shadow-sm">DRIFTED</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>JORDAN_NEO</td>
+                                        <td>T-15</td>
+                                        <td>MATRIX_HUB</td>
+                                        <td>100%</td>
+                                        <td><span class="badge bg-success shadow-sm">STABLE</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="glass-panel p-4 h-100 text-center">
+                        <h4 class="orbitron text-magenta mb-4">SYNC_ANALYTICS</h4>
+                        <canvas id="scoreChart" style="max-height: 250px;"></canvas>
+                        <p class="text-white-50 small mt-3">Success rate per temporal sector.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Modal -->
+            <div class="modal fade" id="settingsModal" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content glass-panel border-cyan"
+                        style="background: rgba(0,0,0,0.9); backdrop-filter: blur(20px);">
+                        <div class="modal-header border-bottom border-cyan">
+                            <h5 class="modal-title orbitron text-cyan">SYSTEM_CONFIG</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="text-white-50 small d-block">MATRIX_THEME</label>
+                                <select class="form-select bg-dark text-white border-secondary">
+                                    <option>CLASSIC_CYAN</option>
+                                    <option>VOLCANIC_RED</option>
+                                    <option>EMERALD_GREEN</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="text-white-50 small d-block">TEMPORAL_LIMIT (Seconds)</label>
+                                <input type="number" class="form-control bg-dark text-white border-secondary"
+                                    value="300">
+                            </div>
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" checked>
+                                <label class="text-white">ENABLE_HARD_OVERRIDE</label>
+                            </div>
+                        </div>
+                        <div class="modal-footer border-top border-cyan">
+                            <button type="button" class="btn btn-outline-cyan orbitron w-100"
+                                data-bs-dismiss="modal">COMMIT_CHANGES</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4 mb-5">
+                <div class="col-12">
+                    <div class="glass-panel p-4">
+                        <h4 class="orbitron text-white mb-4">GLOBAL_BROADCAST</h4>
+                        <div class="row align-items-end">
+                            <div class="col-md-9">
+                                <label class="text-white-50 small">MESSAGE_SEQUENCE</label>
+                                <input type="text" class="form-control bg-dark border-secondary text-white"
+                                    placeholder="Broadcast system message to all active nodes...">
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-outline-magenta w-100 orbitron"
+                                    onclick="alert('BROADCAST_TRANSMITTED: Network synchronization updated.')">EXECUTE_SIGNAL</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                function showSettings() {
+                    const myModal = new bootstrap.Modal(document.getElementById('settingsModal'));
+                    myModal.show();
+                }
+
+                // Initialize Analytics Chart
+                const ctx = document.getElementById('scoreChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Stable', 'Unstable', 'Drifted'],
+                        datasets: [{
+                            data: [65, 25, 10],
+                            backgroundColor: ['#00f2ff', '#ff00ff', '#ffffff'],
+                            borderColor: 'transparent'
+                        }]
+                    },
+                    options: {
+                        plugins: {
+                            legend: {
+                                labels: { color: '#fff', font: { family: 'Orbitron', size: 10 } }
+                            }
+                        }
+                    }
+                });
+
+                // --- Sync Logs Loader ---
+                function loadSyncLogs() {
+                    const logsBody = document.getElementById('sync-logs-body');
+                    const logs = JSON.parse(localStorage.getItem('globalSyncLogs')) || [];
+
+                    if (logs.length > 0) {
+                        logsBody.innerHTML = ''; // Clear samples
+                        logs.forEach(log => {
+                            const badgeClass = log.status === 'STABLE' ? 'bg-success' : 'bg-danger';
+                            logsBody.innerHTML += `
+                                <tr>
+                                    <td>${log.name}</td>
+                                    <td>${log.class}</td>
+                                    <td>${log.branch}</td>
+                                    <td>${log.score}</td>
+                                    <td><span class="badge ${badgeClass} shadow-sm">${log.status}</span></td>
+                                </tr>
+                            `;
+                        });
+                    }
+                }
+
+                loadSyncLogs();
+            </script>
+        </div>
+    </div>
+</body>
+
+</html>
